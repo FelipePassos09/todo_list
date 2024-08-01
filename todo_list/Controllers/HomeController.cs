@@ -28,10 +28,8 @@ public class HomeController : Controller
         
         return View(content);
     }
-
     
-    [HttpPost]
-    [ValidateAntiForgeryToken]
+    /*//GET set Done
     public async Task<IActionResult> Done(long? id)
     {
         if (id == null)
@@ -40,32 +38,29 @@ public class HomeController : Controller
         }
 
         var noteViewModel = await _context.Notes.FindAsync(id);
-        
         if (noteViewModel == null)
         {
             return NotFound();
         }
         
-        if (ModelState.IsValid)
+        return View(noteViewModel);
+    }
+*/
+    
+    [HttpPost]
+    [ValidateAntiForgeryToken]
+    public async Task<IActionResult> ToogleDone(long id)
+    {
+        var noteViewModel = await _context.Notes.FindAsync(id);
+
+        if (noteViewModel == null)
         {
-            try
-            {
-                _context.Update(noteViewModel.Done = true);
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!NoteViewModelExists(noteViewModel.Id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
-            return RedirectToAction(nameof(Index));
+            return NotFound();
         }
+
+        noteViewModel.Done = true;
+        _context.Update(noteViewModel);
+        await _context.SaveChangesAsync();
         
         return RedirectToAction(nameof(Index)); 
         

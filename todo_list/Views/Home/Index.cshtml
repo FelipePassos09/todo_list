@@ -1,5 +1,6 @@
 ﻿@model IEnumerable<todo_list.Models.NoteViewModel>
 
+
 @{
     ViewData["Title"] = "Home Page";
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -41,7 +42,10 @@
                 <td class="justify-content-center w-auto table-nowrap">
                     <a asp-action="Edit" class="btn btn-dark" asp-route-id="@item.Id">Edit</a>
                     <a asp-action="Details" class="btn btn-primary" asp-route-id="@item.Id">Details</a>
-                    <a asp-action="Done" class="btn btn-success" asp-route-id="@item.Id">Concluir</a>
+                    <form action="@Url.Action("ToogleDone", "Home", new { id = @item.Id })" method="post" class="d-inline">
+                        @Html.AntiForgeryToken()
+                        <button type="submit" class="btn btn-success">Alterar Status</button>
+                    </form>
                 </td>
             </tr>
         }
