@@ -1,0 +1,66 @@
+@model IEnumerable<todo_list.Models.NoteViewModel>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Notes</h1>
+
+<p>
+    <a asp-action="Create" class="btn btn-primary">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Subject)
+            </th>
+            <th class="overflow-auto h-50">
+                @Html.DisplayNameFor(model => model.Content)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Done)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Priorities)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DueDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CreatedAt)
+            </th>
+            <th class="align-self-lg-auto w-auto table-nowrap"></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Subject)
+            </td>
+            <td class="overflow-content">
+                @Html.DisplayFor(modelItem => item.Content)
+            </td>
+            <td >
+                @Html.DisplayFor(modelItem => item.Done)
+            </td>
+            <td >
+                @Html.DisplayFor(modelItem => item.Priorities)
+            </td >
+            <td>
+                @Html.DisplayFor(modelItem => item.DueDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CreatedAt)
+            </td>
+            <td class="justify-content-center w-auto table-nowrap">
+                <a asp-action="Edit" class="btn btn-dark" asp-route-id="@item.Id">Edit</a>
+                <a asp-action="Details" class="btn btn-primary" asp-route-id="@item.Id">Details</a>
+                <a asp-action="Delete" class="btn btn-danger" asp-route-id="@item.Id">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

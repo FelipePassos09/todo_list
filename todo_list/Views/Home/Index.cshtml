@@ -1,0 +1,50 @@
+﻿@model IEnumerable<todo_list.Models.NoteViewModel>
+
+@{
+    ViewData["Title"] = "Home Page";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="text-center">
+    <h1 class="display-2 h-50">ToDo List MVC Model</h1>
+    <p>Este é um modelo de site de gestão de tarefas feito em MVC.</p>
+</div>
+<div>
+    <table class="table w-50">
+        <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Subject)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Priorities)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DueDate)
+            </th>
+            <th class="align-self-lg-auto w-auto table-nowrap"></th>
+        </tr>
+        </thead>
+        <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Subject)
+                </td>
+                <td >
+                    @Html.DisplayFor(modelItem => item.Priorities)
+                </td >
+                <td>
+                    @Html.DisplayFor(modelItem => item.DueDate)
+                </td>
+                <td class="justify-content-center w-auto table-nowrap">
+                    <a asp-action="Edit" class="btn btn-dark" asp-route-id="@item.Id">Edit</a>
+                    <a asp-action="Details" class="btn btn-primary" asp-route-id="@item.Id">Details</a>
+                    <a asp-action="Done" class="btn btn-success" asp-route-id="@item.Id">Concluir</a>
+                </td>
+            </tr>
+        }
+        </tbody>
+    </table>
+</div>
